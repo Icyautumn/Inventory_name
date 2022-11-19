@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Login Page</title>
+<%@include file='includes/head.jsp'%>
 </head>
 <body>
 <h1>Logo</h1>
