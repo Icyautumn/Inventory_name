@@ -10,6 +10,8 @@
 <title>Reports Page</title>
 </head>
 <body>
+	${rows}
+	<!-- Forward page to servlet, then forward from servlet back to resports.jsp -->
 	<div class="container-fluid"
 		style="margin-top: 100px; margin-right: 100px; margin-left: 100px">
 		<div class="flex row">
@@ -30,7 +32,8 @@
 		</div>
 
 		<!-- TODO: fix margin right not working. -->
-		<table class="table table-striped table-hover align-middle" style="width: auto%">
+		<table class="table table-striped table-hover align-middle"
+			style="width: auto%">
 			<thead class="text-center">
 				<tr>
 					<th scope="col">Category</th>

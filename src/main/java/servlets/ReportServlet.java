@@ -1,8 +1,9 @@
-package Servlets;
+package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +16,7 @@ import models.*;
 /**
  * Servlet implementation class DataServlet
  */
-@WebServlet("/reports.jsp")
+@WebServlet("/ReportServlet.jsp")
 public class ReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,21 +31,20 @@ public class ReportServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 System.out.println ("test");
-		PrintWriter out = response.getWriter();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		System.out.println ("test");
+		
 		Gson gson = new Gson();
 		ReportModel reportModel = new ReportModel();
-		String action = request.getParameter("action");
-		if(action.equalsIgnoreCase("demo01")) {
-			out.print(gson.toJson(reportModel.findAll()));
-			out.flush(); //flushes content of buffer into output stream, whatever this means :D
-			out.close();
-		} else if(action.equalsIgnoreCase("demo2")){
-			out.print(gson.toJson(reportModel.findAll()));
-			out.flush(); //flushes content of buffer into output stream, whatever this means :D
-			out.close();
-		}
+		
+		String action = request.getParameter("rows");
+		
+		action = gson.toJson(reportModel.findAll());
+
+		request.setAttribute("rows", action);
+		request.getRequestDispatcher("/reports.jsp").forward(request, response);
+		return;
+
 	}
 
 	/**
@@ -54,5 +54,7 @@ public class ReportServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
+	
 
 }
