@@ -18,7 +18,7 @@
 					</div>
 
 					<div class="p-4">
-						<form action="login" method="post">
+						<form action="loginServlet" method="post">
 							<div class="input-group mb-2">
 								<span class="input-group-text bg-primary"><span
 									class="material-symbols-outlined" style="color: white;">
