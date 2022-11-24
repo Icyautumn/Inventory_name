@@ -1,5 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
+<%
+session.setMaxInactiveInterval(2);
+%>
+
+ <script type="text/javascript">
+var Msg ='<%=session.getAttribute("getAlert")%>';
+    if (Msg != "null") {
+ function alertName(){
+ alert("Username or Password is Incorrect");
+ } 
+ }
+ </script> 
+ 
+ <script type="text/javascript"> window.onload = alertName; </script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +24,8 @@
 <%@include file='includes/head.jsp'%>
 </head>
 <body>
+
+	
 
 	<div class="container-fluid">
 		<div class="" style="margin-top: 100px">
@@ -18,7 +36,7 @@
 					</div>
 
 					<div class="p-4">
-						<form action="login" method="post">
+						<form action="loginServlet" method="post">
 							<div class="input-group mb-2">
 								<span class="input-group-text bg-primary"><span
 									class="material-symbols-outlined" style="color: white;">
@@ -44,6 +62,9 @@
 
 								</div>
 
+
+
+
 							</div>
 						</form>
 					</div>
@@ -53,6 +74,7 @@
 			</div>
 		</div>
 	</div>
+
 
 </body>
 </html>
