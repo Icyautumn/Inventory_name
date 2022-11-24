@@ -1,19 +1,8 @@
 package com.inventory.manager.servlet;
 import java.io.IOException;
-
-import org.bouncycastle.crypto.generators.OpenBSDBCrypt;
-import org.springframework.security.*;
-
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 import java.io.PrintWriter;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;
 
 import javax.servlet.ServletException;
@@ -21,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class login
@@ -86,6 +76,8 @@ public class loginServlet extends HttpServlet {
 //			    // Invalid Signing configuration / Couldn't convert Claims.
 //			}
 			
+			HttpSession session = request.getSession();
+			
 			password = encodeToBase64(password);
 			System.out.println(email);
 			System.out.println(password);
@@ -94,6 +86,13 @@ public class loginServlet extends HttpServlet {
 			if(email == "inventory" && password == "password") {
 //				request.getSession().setAttribute("auth", user);
 				response.sendRedirect("index.jsp");
+				
+			}
+			else {
+				session.setAttribute("getAlert","Yes");
+				System.out.print(request.getAttribute("getAlert") + "calling mother fucker");
+				response.sendRedirect("login.jsp");
+				
 			}
 		}
 		doGet(request, response);
