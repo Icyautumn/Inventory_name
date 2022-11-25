@@ -78,19 +78,20 @@ public class loginServlet extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			
-			password = encodeToBase64(password);
+//			password = encodeToBase64(password);
 			System.out.println(email);
 			System.out.println(password);
-			System.out.println(decodeFromBase64(password)+ " decoded");
+//			System.out.println(decodeFromBase64(password)+ " decoded");
 			
-			if(email == "inventory" && password == "password") {
+			if(email.equals("inventory") && password.equals("password") ) {
 //				request.getSession().setAttribute("auth", user);
-				response.sendRedirect("index.jsp");
+				session.setAttribute("getAlert",null);
+				request.getRequestDispatcher("/ReportServlet.jsp").forward(request, response);
 				
 			}
 			else {
 				session.setAttribute("getAlert","Yes");
-				System.out.print(request.getAttribute("getAlert") + "calling mother fucker");
+				System.out.print(request.getAttribute("getAlert") + "hello");
 				response.sendRedirect("login.jsp");
 				
 			}
