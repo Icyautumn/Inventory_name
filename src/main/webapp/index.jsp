@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Testing</h1>
-</body>
+	<jsp:forward page="ReportServlet.jsp">
+		<jsp:param name="rows" value="10" />
+	</jsp:forward></body>
 </html>
