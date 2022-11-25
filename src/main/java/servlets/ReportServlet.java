@@ -32,7 +32,7 @@ public class ReportServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		System.out.println ("test");
+		System.out.println (request.getParameter(getServletInfo()));
 		
 		Gson gson = new Gson();
 		ReportModel reportModel = new ReportModel();

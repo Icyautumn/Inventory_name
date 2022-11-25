@@ -10,7 +10,28 @@
 <title>Reports Page</title>
 </head>
 <body>
-	${rows}
+	<div style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
+		<h1>Reports</h1>
+		<form action="redirect" method="GET">
+			<table class="table table-striped table-hover" style="width: auto%">
+				<thead>
+					<tr>
+						<th scope="col">Date</th>
+						<th scope="col">Report Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">11/11/2020</th>
+						<td><button type="submit" name="name" value="110011">name of report</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+
+	</div>
+
+	<%-- 	${rows}
 	<!-- Forward page to servlet, then forward from servlet back to resports.jsp -->
 	<div class="container-fluid"
 		style="margin-top: 100px; margin-right: 100px; margin-left: 100px">
@@ -75,7 +96,7 @@
 			<div class="col">
 				<button class="btn btn-primary">Add</button>
 			</div>
-		</div>
+		</div> --%>
 	</div>
 </body>
 </html>
