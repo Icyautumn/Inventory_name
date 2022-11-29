@@ -5,6 +5,7 @@ import java.util.Date;
 public class Report {
 	private String id, reportName, reportDate, category, name;
 	private double openStock, closeStock, costPrice, retailPrice;
+	
 
 	public String getId() {
 		return id;
