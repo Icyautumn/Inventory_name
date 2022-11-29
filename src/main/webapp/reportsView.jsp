@@ -29,6 +29,8 @@ String paramID = request.getParameter("id");
 					<th scope="col">Name</th>
 					<th scope="col">Open Stock</th>
 					<th scope="col">Close Stock</th>
+					<th scope="col">Cost Price</th>
+					<th scope="col">Retail Price</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,6 +41,8 @@ String paramID = request.getParameter("id");
 							<td>${rows.name}</td>
 							<td>${rows.openStock}</td>
 							<td>${rows.closeStock}</td>
+							<td>$${rows.costPrice}</td>
+							<td>$${rows.retailPrice}</td>
 						</tr>
 					</c:if>
 				</c:forEach>

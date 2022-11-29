@@ -3,8 +3,8 @@ package entities;
 import java.util.Date;
 
 public class Report {
-	private String id, reportName, name, category, reportDate;
-	private double openStock, closeStock;
+	private String id, reportName, reportDate, category, name;
+	private double openStock, closeStock, costPrice, retailPrice;
 
 	public String getId() {
 		return id;
@@ -62,7 +62,26 @@ public class Report {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public Report(String id, String reportName, String reportDate,String category, String name, double openStock, double closeStock) {
+
+	public double getCostPrice() {
+		return costPrice;
+	}
+
+	public void setCostPrice(double costPrice) {
+		this.costPrice = costPrice;
+	}
+
+	public double getRetailPrice() {
+		return retailPrice;
+	}
+
+	public void setRetailPrice(double retailPrice) {
+		this.retailPrice = retailPrice;
+	}
+	
+
+	public Report(String id, String reportName, String reportDate, String category, String name, double openStock,
+			double closeStock, double costPrice, double retailPrice) {
 		super();
 		this.id = id;
 		this.reportName = reportName;
@@ -71,6 +90,7 @@ public class Report {
 		this.name = name;
 		this.openStock = openStock;
 		this.closeStock = closeStock;
+		this.costPrice = costPrice;
+		this.retailPrice = retailPrice;
 	}
-
 }
