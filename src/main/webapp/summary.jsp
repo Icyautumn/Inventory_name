@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.google.gson.Gson"%>
-<%@ page import="com.google.gson.JsonObject"%>
+<%@ page import="com.google.gson.JsonObject"%>x
 <%
 Gson gsonObj = new Gson();
 Map<Object,Object> map = null;
@@ -15,7 +15,7 @@ map = new HashMap<Object,Object>(); map.put("label", "Nap"); map.put("y", 2); li
 map = new HashMap<Object,Object>(); map.put("label", "Sleep"); map.put("y", 29); list.add(map);
 String dataPoints = gsonObj.toJson(list);
 %>
- 
+Â 
 <!DOCTYPE HTML>
 <html>
 <head>
