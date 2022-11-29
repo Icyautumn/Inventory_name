@@ -87,6 +87,7 @@ public class loginServlet extends HttpServlet {
 //				request.getSession().setAttribute("auth", user);
 				session.setAttribute("getAlert",null);
 				request.getRequestDispatcher("/ReportServlet.jsp").forward(request, response);
+//				response.sendRedirect("summary.jsp");
 				
 			}
 			else {
