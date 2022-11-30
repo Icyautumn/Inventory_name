@@ -12,7 +12,16 @@
 </head>
 <body>
 	<div style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
-		<h1>Reports</h1>
+		<div class="flex row align-items-end">
+			<div class="col-1">
+				<h1>Reports</h1>
+			</div>
+			<div class="col-2 align-items-end">
+				<a href='reportsView.jsp?id=${rows.id}'>
+					<button class="btn btn-primary">Add new report</button>
+				</a>
+			</div>
+		</div>
 		<table class="table table-striped table-hover" style="width: auto%">
 			<thead>
 				<tr>
