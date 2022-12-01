@@ -84,8 +84,8 @@ public class loginServlet extends HttpServlet {
 //			System.out.println(decodeFromBase64(password)+ " decoded");
 			
 			if(email.equals("inventory") && password.equals("password") ) {
-//				request.getSession().setAttribute("auth", user);
 				session.setAttribute("getAlert",null);
+				System.out.println("connected");
 				request.getRequestDispatcher("/ReportServlet.jsp").forward(request, response);
 //				response.sendRedirect("summary.jsp");
 				
