@@ -2,25 +2,34 @@ package models;
 
 import java.util.*;
 
+import entities.InventoryItem;
 import entities.Report;
+import entities.ReportCategory;
 
 public class ReportModel {
-	
+
 	public Report find() {
-		return new Report("01","110011", "11/11/20", "Food", "Oreo", 2.0, 1.0, 4.0, 10.0);
+		return new Report("01", "11011", "11/11/20", ReportCategory.FOOD,
+				List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)));
 	}
-	
+
 	/*
 	 * public Report findOne(String id) { return ;
 	 * 
 	 * }
 	 */
-	
-	public List<Report> findAll(){
+
+	public List<Report> findAll() {
 		List<Report> result = new ArrayList<Report>();
-		result.add(new Report("01","110011", "11/11/20", "Food", "Oreo", 2.0, 1.0, 4.0, 10.0));
-		result.add(new Report("02", "110022", "10/10/20", "Drink", "Milo", 2.0, 2.0, 1.0, 7.0));
-		result.add(new Report("03","110033", "09/09/20", "Food", "Sotong Ballz", 2.0, 1.0, 3.0, 15.0));
+		result.add(new Report("01", "110011", "11/11/20", ReportCategory.FOOD,
+				List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
+						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD))));
+		result.add(new Report("02", "110022", "10/10/20", ReportCategory.DRINK,
+				List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK),
+						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK))));
+		result.add(new Report("03", "110033", "09/09/20", ReportCategory.FOOD,
+				List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
+						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD))));
 		return result;
 	}
 
