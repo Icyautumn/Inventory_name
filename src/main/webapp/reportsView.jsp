@@ -31,19 +31,27 @@ String paramID = request.getParameter("id");
 					<th scope="col">Close Stock</th>
 					<th scope="col">Cost Price</th>
 					<th scope="col">Retail Price</th>
+					<th scope="col">Profit</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items='${reportData}' var="rows">
 					<c:if test="${rows.id == param.id}">
-						<tr>
-							<th scope="row"><c:out value="${rows.category}" /></th>
-							<td>${rows.name}</td>
-							<td>${rows.openStock}</td>
-							<td>${rows.closeStock}</td>
-							<td>$${rows.costPrice}</td>
-							<td>$${rows.retailPrice}</td>
-						</tr>
+						<c:forEach items='${rows.items}' var="rows">
+							<tr>
+
+								<td scope="row"><c:out value="${rows.category}" /></td>
+
+								<td>${rows.name}</td>
+								<td>${rows.openStock}</td>
+								<td>${rows.closeStock}</td>
+								<td>$${rows.costPrice}</td>
+								<td>$${rows.retailPrice}</td>
+								<td>$${rows.profit }</td>
+
+
+							</tr>
+						</c:forEach>
 					</c:if>
 				</c:forEach>
 
