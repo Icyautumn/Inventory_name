@@ -78,12 +78,10 @@ public class loginServlet extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			
-//			password = encodeToBase64(password);
-			System.out.println(email);
-			System.out.println(password);
+			password = encodeToBase64(password);
 //			System.out.println(decodeFromBase64(password)+ " decoded");
 			
-			if(email.equals("inventory") && password.equals("password") ) {
+			if(email.equals("inventory") && password.equals(encodeToBase64("password"))) {
 				session.setAttribute("getAlert",null);
 				System.out.println("connected");
 				request.getRequestDispatcher("/ReportServlet.jsp").forward(request, response);
