@@ -1,5 +1,6 @@
 package servlets;
 import java.io.IOException;
+import org.mindrot.jbcrypt.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 import java.io.PrintWriter;
@@ -77,6 +78,9 @@ public class loginServlet extends HttpServlet {
 //			}
 			
 			HttpSession session = request.getSession();
+			// hash password
+			// var hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+			//BCrypt.checkpw(password, passwordcallfromdatabase);
 			
 			password = encodeToBase64(password);
 //			System.out.println(decodeFromBase64(password)+ " decoded");
