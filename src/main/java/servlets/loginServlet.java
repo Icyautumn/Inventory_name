@@ -50,37 +50,15 @@ public class loginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String public_key = "MCgCIQCbuuorFiegnOsF/zE43ApBUT3e2kRiLQXw4RUJxgxCiwIDAQAB";
-//		String private_Key = "MIGqAgEAAiEAm7rqKxYnoJzrBf8xONwKQVE93tpEYi0F8OEVCcYMQosCAwEAAQIhAJJxBltWDhWe+fM9sk/Bu3GPf9E9Z0iLDAgjIfqg58OBAhEA22P3XflRg0f5ocDVLqPImwIRALW3eSJ/x21smfx5hGsiNNECEHPoHIhJcAcrv3b1qas6XIECEFusEZpL6CnVzeFG1HzPpuECEEGBsBkuGWGqtcuEoXkBB1I=";
-		// TODO Auto-generated method stub
-		
-//		KeyPairGenerator kpg = null;
-//		try {
-//			kpg = KeyPairGenerator.getInstance("RSA");
-//		} catch (NoSuchAlgorithmException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		KeyPair kp = kpg.generateKeyPair();
-//		RSAPublicKey rPubKey = (RSAPublicKey) kp.getPublic();
-//		RSAPrivateKey rPriKey = (RSAPrivateKey) kp.getPrivate();
 		
 		try (PrintWriter out = response.getWriter()){
 			String email = request.getParameter("username");
-			String password = request.getParameter("password");
-//			try {
-//			    Algorithm algorithm = Algorithm.RSA256(rPubKey, rPriKey);
-//			    String token = JWT.create()
-//			        .withIssuer("auth0")
-//			        .sign(algorithm);
-//			} catch (JWTCreationException exception){
-//			    // Invalid Signing configuration / Couldn't convert Claims.
-//			}
+			String password = request.getParameter("password");	
 			
 			HttpSession session = request.getSession();
-			// hash password
-			// var hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-			//BCrypt.checkpw(password, passwordcallfromdatabase);
+//			 hash password
+//			 var hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+//			BCrypt.checkpw(password, passwordcallfromdatabase);
 			
 			password = encodeToBase64(password);
 //			System.out.println(decodeFromBase64(password)+ " decoded");
