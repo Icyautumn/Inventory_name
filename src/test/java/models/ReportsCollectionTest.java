@@ -23,16 +23,15 @@ class ReportsCollectionTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		//Arrange
-		rp = new ReportsCollection();
 		rp1 = new Report("01", "110011", "11/11/20", ReportCategory.FOOD,
 				List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
-						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)));
+						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)), "001");
 		rp2 = new Report("02", "110022", "10/10/20", ReportCategory.DRINK,
 				List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK),
-						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK)));
+						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK)), "001");
 		rp3 = new Report("03", "110033", "09/09/20", ReportCategory.FOOD,
 				List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
-						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)));
+						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)), "001");
 		
 		rp.addInventory(rp1);
 		rp.addInventory(rp2);
