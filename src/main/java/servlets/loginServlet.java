@@ -65,14 +65,23 @@ public class loginServlet extends HttpServlet {
 			
 			if(email.equals("inventory") && password.equals(encodeToBase64("password"))) {
 				session.setAttribute("getAlert",null);
+				session.setAttribute("companyID", "002");
+
 				System.out.println("connected");
+				
+				//sets company ID to session attribute
+				System.out.println("company id: " + session.getAttribute("companyID"));
+				
 				request.getRequestDispatcher("/ReportServlet.jsp").forward(request, response);
 //				response.sendRedirect("summary.jsp");
 				
 			}
 			else {
 				session.setAttribute("getAlert","Yes");
-				System.out.print(request.getAttribute("getAlert") + "hello");
+				session.setAttribute("CompanyID", "invalid");
+				
+				System.out.println(session.getAttribute("companyID") + " companyID");
+				System.out.println(session.getAttribute("getAlert") + " hello");
 				response.sendRedirect("login.jsp");
 				
 			}

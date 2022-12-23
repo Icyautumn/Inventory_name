@@ -22,11 +22,13 @@
 			</thead>
 			<tbody>
 				<c:forEach items='${reportData}' var="rows">
-					<tr>
-						<th scope="row">${rows.reportDate}</th>
-						<td><a href='reportsView.jsp?id=${rows.id}'>${rows.reportName}</a></td>
-						<!-- passes id to reportsView -->
-					</tr>
+					<c:if test="${rows.companyID == companyID}">
+						<tr>
+							<th scope="row">${rows.reportDate}</th>
+							<td><a href='reportsView.jsp?id=${rows.id}'>${rows.reportName}</a></td>
+							<!-- passes id to reportsView -->
+						</tr>
+					</c:if>
 				</c:forEach>
 			</tbody>
 		</table>
