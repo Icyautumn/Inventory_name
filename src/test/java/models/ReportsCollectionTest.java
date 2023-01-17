@@ -78,7 +78,7 @@ class ReportsCollectionTest {
 		rp.removeInventory(rp1);
 
 		assertEquals(rp.getReports().size(), REPORT_COLLECTION_SIZE - 1);
-
+		
 	}
 
 }
