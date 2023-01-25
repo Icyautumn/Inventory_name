@@ -22,7 +22,7 @@ public class ReportModel {
 	public List<Report> add() {
 		List<Report> result = new ArrayList<Report>();
 		result.add(new Report("04", "11014", "19/12/22", ReportCategory.FOOD,
-				List.of(new InventoryItem("RipOffs", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD))));
+				List.of(new InventoryItem("RipOffs", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)), "004"));
 		return result;
 	}
 

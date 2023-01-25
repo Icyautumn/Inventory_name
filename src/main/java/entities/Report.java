@@ -11,7 +11,8 @@ public class Report {
 	private List<InventoryItem> items;
 	private ReportCategory category;
 
-	public Report(String id, String reportName, String reportDate, ReportCategory category, List<InventoryItem> items, String companyID) {
+	public Report(String id, String reportName, String reportDate, ReportCategory category, List<InventoryItem> items,
+			String companyID) {
 		super();
 		this.id = id;
 		this.reportName = reportName;

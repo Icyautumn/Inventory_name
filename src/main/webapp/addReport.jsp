@@ -18,45 +18,48 @@ String paramID = request.getParameter("id");
 </head>
 <body>
 	<div style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
-		<h1>
-			Report
-			<%=paramID%></h1>
 
-		<table class="table table-striped table-hover" style="width: auto%">
-			<thead>
-				<tr>
-					<th scope="col">Category</th>
-					<th scope="col">Name</th>
-					<th scope="col">Open Stock</th>
-					<th scope="col">Close Stock</th>
-					<th scope="col">Cost Price</th>
-					<th scope="col">Retail Price</th>
-					<th scope="col">Profit</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items='${reportData}' var="rows">
-					<c:if test="${rows.id == param.id}">
-						<c:forEach items='${rows.items}' var="rows">
-							<tr>
+		<h1>Add Reports</h1>
 
-								<td scope="row"><c:out value="${rows.category}" /></td>
+		<form action="addReport" method="post">
+			<div class="form-group">
+				<label for="category">Category:</label> <input type="text"
+					class="form-control" id="category" name="category"
+					placeholder="Enter category" required>
+			</div>
+			<div class="form-group">
+				<label for="name">Name:</label> <input type="text"
+					class="form-control" id="name" name="name" placeholder="Enter name"
+					required>
+			</div>
+			<div class="form-group">
+				<label for="openStock">Open Stock:</label> <input type="number"
+					class="form-control" id="openStock" name="openStock"
+					placeholder="Enter open stock" required>
+			</div>
+			<div class="form-group">
+				<label for="closeStock">Close Stock:</label> <input type="number"
+					class="form-control" id="closeStock" name="closeStock"
+					placeholder="Enter close stock" required>
+			</div>
+			<div class="form-group">
+				<label for="costPrice">Cost Price:</label> <input type="number"
+					class="form-control" id="costPrice" name="costPrice"
+					placeholder="Enter cost price" required>
+			</div>
+			<div class="form-group">
+				<label for="retailPrice">Retail Price:</label> <input type="number"
+					class="form-control" id="retailPrice" name="retailPrice"
+					placeholder="Enter retail price" required>
 
-								<td>${rows.name}</td>
-								<td>${rows.openStock}</td>
-								<td>${rows.closeStock}</td>
-								<td>$${rows.costPrice}</td>
-								<td>$${rows.retailPrice}</td>
-								<td>$${rows.profit }</td>
-
-
-							</tr>
-						</c:forEach>
-					</c:if>
-				</c:forEach>
-
-			</tbody>
-		</table>
+			</div>
+			<div class="form-group">
+				<label for="profit">Profit:</label> <input type="number"
+					class="form-control" id="profit" name="profit"
+					placeholder="Enter profit" required>
+			</div>
+			<button type="submit" class="btn btn-primary">Add Report</button>
+		</form>
 
 	</div>
 </body>

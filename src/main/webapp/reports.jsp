@@ -13,11 +13,11 @@
 <body>
 	<div style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
 		<div class="flex row align-items-end">
-			<div class="col-1">
+			<div class="col-2">
 				<h1>Reports</h1>
 			</div>
 			<div class="col-2 align-items-end">
-				<form action="ReportServlet.jsp" method="post" >
+				<form action="addReport.jsp" method="post" >
 					<button type="submit" class="btn btn-primary">Add new report</button>
 				</form>
 			</div>
