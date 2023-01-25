@@ -50,12 +50,27 @@ public class NewTest {
 		}
 		Assert.assertTrue(webDriver.getTitle().contains("Reports"));
 	}
+	
+	@Test
+	public void checkReportsLoaded() {
+		WebElement tableRow = webDriver.findElement(By.xpath("//th[1]"));
+		
+		boolean isDisplayed = tableRow.isDisplayed();
+		
+		if (tableRow.isDisplayed()) {
+			System.out.println("Reports Status: Reports is loaded");
+		} else {
+			System.out.println("Reports Status: Reports is not loaded");
+		}
+		Assert.assertTrue(isDisplayed);
+	}
 
 	@BeforeTest
 	public void beforeTest() {
 		// Setting system properties of ChromeDriver
 		// to amend directory path base on your local file path
 		String chromeDriverDir = "C:\\Program Files\\Google\\Chrome\\chromedriver.exe";
+		
 
 		System.setProperty("webdriver.chrome.driver", chromeDriverDir);
 
