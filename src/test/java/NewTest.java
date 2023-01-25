@@ -64,6 +64,45 @@ public class NewTest {
 		}
 		Assert.assertTrue(isDisplayed);
 	}
+	
+	@Test
+	public void verifyAddReportFunctionality() {
+		WebElement addReportPageButton = webDriver.findElement(By.xpath("//button[text()='Add new report'"));
+		addReportPageButton.click();
+		
+		WebElement categoryInput = webDriver.findElement(By.name("category"));
+		categoryInput.sendKeys("FOOD");
+
+		WebElement nameInput = webDriver.findElement(By.name("name"));
+		nameInput.sendKeys("Mala");
+
+		WebElement openStockInput = webDriver.findElement(By.name("openStock"));
+		openStockInput.sendKeys("10");
+
+		WebElement closeStockInput = webDriver.findElement(By.name("closeStock"));
+		closeStockInput.sendKeys("5");
+
+		WebElement costPriceInput = webDriver.findElement(By.name("costPrice"));
+		costPriceInput.sendKeys("3");
+
+		WebElement retailPriceInput = webDriver.findElement(By.name("retailPrice"));
+		retailPriceInput.sendKeys("11");
+
+		WebElement profitInput = webDriver.findElement(By.name("profit"));
+		profitInput.sendKeys("8");
+		
+		WebElement addReport = webDriver.findElement(By.xpath("//button[text()='Add report'"));
+		addReport.click();
+		
+		WebElement tableRow = webDriver.findElement(By.xpath("//th[text()='26/01/23'")); //NOTE: this isn't dynamic, the ReportModel adds in a new list of its own cause idk how to make it dynamic without rebuilding the whole model.
+		
+		if (tableRow.isDisplayed()) {
+			System.out.println("Add Report Status: Reports is Added");
+		} else {
+			System.out.println("Add Report Status: Reports is not Added");
+		}
+//		Assert.assertTrue(isDisplayed);
+	}
 
 	@BeforeTest
 	public void beforeTest() {
