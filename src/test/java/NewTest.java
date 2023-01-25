@@ -12,15 +12,38 @@ public class NewTest {
   //declare Selenium WebDriver
   private WebDriver webDriver;		
   
+//  @Test
+//  public void checkId() {
+//	  //Load website as a new page
+//	  webDriver.navigate().to("http://localhost:8080/Inventory_manager/login.jsp");
+//	  WebElement we =  webDriver.findElement(By.id("content"));
+//	  
+//	  System.out.println("id we: "+we.getAttribute("role"));
+//	  Assert.assertEquals(we.getAttribute("role"), "contentinfo");
+//  }
+//  
+  
   @Test
-  public void checkId() {
-	  //Load website as a new page
+  public void checkLogin() {
+	  //Load Login as a new page
 	  webDriver.navigate().to("http://localhost:8080/Inventory_manager/login.jsp");
-	  WebElement we =  webDriver.findElement(By.id("content"));
 	  
-	  System.out.println("id we: "+we.getAttribute("role"));
-	  Assert.assertEquals(we.getAttribute("role"), "contentinfo");
+	// Find the email input element and enter the email address
+      WebElement emailInput = webDriver.findElement(By.name("username"));
+      emailInput.sendKeys("inventory");
+      
+      WebElement passwordInput = webDriver.findElement(By.name("password"));
+      passwordInput.sendKeys("password");
+      
+      WebElement loginButton = webDriver.findElement(By.xpath("//button[text()='Log in']"));
+      loginButton.click();
+      
+//	  WebElement we =  webDriver.findElement(By.id("content"));
+	  
+	  System.out.println("emailInput id: "+ emailInput.getAttribute("role"));
+	  Assert.assertEquals(emailInput.getAttribute("role"), "contentinfo");
   }
+  
   @Test
   public void checkTitle() {
 	  //Load website as a new page
