@@ -3,15 +3,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 
 public class NewTest {
-  //declare Selenium WebDriver
-  private WebDriver webDriver;		
-  
+	// declare Selenium WebDriver
+	private WebDriver webDriver;
+
 //  @Test
 //  public void checkId() {
 //	  //Load website as a new page
@@ -22,64 +24,49 @@ public class NewTest {
 //	  Assert.assertEquals(we.getAttribute("role"), "contentinfo");
 //  }
 //  
-  
-  @Test
-  public void checkLogin() {
-	  //Load Login as a new page
-	  webDriver.navigate().to("http://localhost:8080/Inventory_manager/login.jsp");
-	  
-	// Find the email input element and enter the email address
-      WebElement emailInput = webDriver.findElement(By.name("username"));
-      emailInput.sendKeys("inventory");
-      
-      WebElement passwordInput = webDriver.findElement(By.name("password"));
-      passwordInput.sendKeys("password");
-      
-      WebElement loginButton = webDriver.findElement(By.xpath("//button[text()='Log in']"));
-      loginButton.click();
-      
-//	  WebElement we =  webDriver.findElement(By.id("content"));
-	  
-	  System.out.println("emailInput id: "+ emailInput.getAttribute("role"));
-	  Assert.assertEquals(emailInput.getAttribute("role"), "contentinfo");
-  }
-  
-  @Test
-  public void checkTitle() {
-	  //Load website as a new page
-	  webDriver.navigate().to("https://devopsessentials.github.io");
-	  
-	  //Assert the title to check that we are indeed in the correct website
-	  Assert.assertEquals(webDriver.getTitle(), "Home");
-	  
-	  System.out.println("title: "+webDriver.getTitle());
-	  
-	  //Retrieve link using it's class name and click on it
-	  webDriver.findElement(By.className("link")).click();
 
-	  //Assert the new title to check that the title contain Wikipedia and the button had successfully bring us to the new page
-	  Assert.assertTrue(webDriver.getTitle().contains("Wikipedia"));
-	  System.out.println("new title: "+webDriver.getTitle());
-  }
-  
-  
-  
-  @BeforeTest
-  public void beforeTest() {
-	  //Setting system properties of ChromeDriver
-	  //to amend directory path base on your local file path
-	  String chromeDriverDir = "C:\\Program Files\\Google\\Chrome\\chromedriver.exe";
+	@Test
+	public void checkLogin() {
+		// Load Login as a new page
+		webDriver.navigate().to("http://localhost:8080/Inventory_manager/login.jsp");
 
-	  System.setProperty("webdriver.chrome.driver", chromeDriverDir);
+		// Find the email input element and enter the email address
+		WebElement emailInput = webDriver.findElement(By.name("username"));
+		emailInput.sendKeys("inventory");
 
-	  //initialize FirefoxDriver at the start of test
-	  webDriver = new ChromeDriver();  
-  }
+		WebElement passwordInput = webDriver.findElement(By.name("password"));
+		passwordInput.sendKeys("password");
 
-  @AfterTest
-  public void afterTest() {
-	  //Quit the ChromeDriver and close all associated window at the end of test
-	  webDriver.quit();			
-  }
+		// Create a new WebDriverWait object and set the timeout to 10 seconds
+		WebDriverWait wait = new WebDriverWait(webDriver, 10);
+		WebElement loginButton = wait
+				.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@name='loginButton']")));
+		loginButton.click();
+
+		if (webDriver.findElement(By.xpath("//h1[1]")).isDisplayed()) {
+			System.out.println("Login Status: Logged in successfully");
+		} else {
+			System.out.println("Login Status: Login failed");
+		}
+		Assert.assertTrue(webDriver.getTitle().contains("Reports"));
+	}
+
+	@BeforeTest
+	public void beforeTest() {
+		// Setting system properties of ChromeDriver
+		// to amend directory path base on your local file path
+		String chromeDriverDir = "C:\\Program Files\\Google\\Chrome\\chromedriver.exe";
+
+		System.setProperty("webdriver.chrome.driver", chromeDriverDir);
+
+		// initialize FirefoxDriver at the start of test
+		webDriver = new ChromeDriver();
+	}
+
+	@AfterTest
+	public void afterTest() {
+		// Quit the ChromeDriver and close all associated window at the end of test
+		webDriver.quit();
+	}
 
 }

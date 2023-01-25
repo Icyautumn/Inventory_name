@@ -58,7 +58,7 @@ var Msg ='<%=session.getAttribute("getAlert")%>';
 										your password?</label>
 								</div>
 								<div class="d-flex justify-content-end">
-									<button class="btn btn-primary text-center mt-2" type="submit">Login</button>
+									<button name="loginButton" class="btn btn-primary text-center mt-2" type="submit">Login</button>
 
 								</div>
 
