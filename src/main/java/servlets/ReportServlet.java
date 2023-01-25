@@ -60,7 +60,6 @@ public class ReportServlet extends HttpServlet {
 		ReportModel reportModel = new ReportModel();
 
 		List<Report> action = reportModel.findAll();
-		action = reportModel.add();
 		
 		session.setAttribute("reportData", action);
 		

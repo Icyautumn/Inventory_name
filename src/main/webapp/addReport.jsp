@@ -21,7 +21,7 @@ String paramID = request.getParameter("id");
 
 		<h1>Add Reports</h1>
 
-		<form action="addReport" method="post">
+		<form action="addReportServlet" method="post">
 			<div class="form-group">
 				<label for="category">Category:</label> <input type="text"
 					class="form-control" id="category" name="category"
