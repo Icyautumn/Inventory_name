@@ -1,10 +1,15 @@
 package servlets;
 import java.io.IOException;
 import org.mindrot.jbcrypt.*;
+
+import entities.Report;
+import models.ReportModel;
+
 import static javax.swing.JOptionPane.showMessageDialog;
 
 import java.io.PrintWriter;
 import java.util.Base64;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -72,7 +77,13 @@ public class loginServlet extends HttpServlet {
 				//sets company ID to session attribute
 				System.out.println("company id: " + session.getAttribute("companyID"));
 				
-				request.getRequestDispatcher("/ReportServlet.jsp").forward(request, response);
+				ReportModel reportModel = new ReportModel();
+
+				List<Report> action = reportModel.findAll();
+
+				session.setAttribute("reportData", action);
+				request.getRequestDispatcher("/reports.jsp").forward(request, response);
+//				request.getRequestDispatcher("/ReportServlet.jsp").forward(request, response);
 //				response.sendRedirect("summary.jsp");
 				
 			}
