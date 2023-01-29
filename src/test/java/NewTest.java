@@ -1,4 +1,3 @@
-
 import org.openqa.selenium.By;
 //import necessary Selenium WebDriver classes
 import org.openqa.selenium.WebDriver;
@@ -123,5 +122,4 @@ public class NewTest {
 		// Quit the ChromeDriver and close all associated window at the end of test
 		webDriver.quit();
 	}
-
 }
