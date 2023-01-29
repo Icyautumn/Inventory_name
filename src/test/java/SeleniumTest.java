@@ -1,3 +1,5 @@
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 //import necessary Selenium WebDriver classes
@@ -11,7 +13,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 
-public class NewTest {
+public class SeleniumTest {
 	// declare Selenium WebDriver
 	private WebDriver webDriver;
 
@@ -32,9 +34,9 @@ public class NewTest {
 
 		System.out.println(webDriver.switchTo().alert().getText());
 		if (webDriver.switchTo().alert().getText() != null) {
-			Assert.assertEquals(webDriver.switchTo().alert().getText(), "Username or Password is Incorrect");
+			AssertJUnit.assertEquals(webDriver.switchTo().alert().getText(), "Username or Password is Incorrect");
 		} else if (webDriver.switchTo().alert().getText() == "no such alert") {
-			Assert.assertEquals(webDriver.switchTo().alert().getText(), "no such alert");
+			AssertJUnit.assertEquals(webDriver.switchTo().alert().getText(), "no such alert");
 		}
 		webDriver.quit();
 	}
@@ -69,7 +71,7 @@ public class NewTest {
 		} else {
 			System.out.println("Login Status: Login failed");
 		}
-		Assert.assertTrue(webDriver.getTitle().contains("Reports"));
+		AssertJUnit.assertTrue(webDriver.getTitle().contains("Reports"));
 	}
 
 	@Test
@@ -83,7 +85,7 @@ public class NewTest {
 		} else {
 			System.out.println("Reports Status: Reports is not loaded");
 		}
-		Assert.assertTrue(isDisplayed);
+		AssertJUnit.assertTrue(isDisplayed);
 	}
 
 	@Test
