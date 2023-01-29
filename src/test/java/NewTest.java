@@ -1,3 +1,4 @@
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 //import necessary Selenium WebDriver classes
 import org.openqa.selenium.WebDriver;
@@ -24,7 +25,30 @@ public class NewTest {
 //	  Assert.assertEquals(we.getAttribute("role"), "contentinfo");
 //  }
 //  
+	@Test
+	public void checkInvalidCredentials() {
+		// Load Login as a new page
+		webDriver.navigate().to("http://localhost:8080/Inventory_manager/login.jsp");
+		
+		// Find the email input element and enter the email address
+		WebElement emailInput = webDriver.findElement(By.name("username"));
+		emailInput.sendKeys("inventory");
 
+		WebElement passwordInput = webDriver.findElement(By.name("password"));
+		passwordInput.sendKeys("wrong");
+		
+		WebElement loginButton = webDriver.findElement(By.xpath("//button[@name='loginButton']"));
+		loginButton.click();
+				
+		System.out.println(webDriver.switchTo().alert().getText());
+		if(webDriver.switchTo().alert().getText() != null) {
+			Assert.assertEquals(webDriver.switchTo().alert().getText(), "Username or Password is Incorrect");
+		} else if(webDriver.switchTo().alert().getText() == "no such alert"){
+			System.out.println("Error");
+		}
+
+	}
+	
 	@Test
 	public void checkLogin() {
 		// Load Login as a new page
@@ -51,6 +75,7 @@ public class NewTest {
 		Assert.assertTrue(webDriver.getTitle().contains("Reports"));
 	}
 	
+
 	@Test
 	public void checkReportsLoaded() {
 		WebElement tableRow = webDriver.findElement(By.xpath("//th[1]"));
@@ -67,7 +92,7 @@ public class NewTest {
 	
 	@Test
 	public void verifyAddReportFunctionality() {
-		WebElement addReportPageButton = webDriver.findElement(By.xpath("//button[text()='Add new report'"));
+		WebElement addReportPageButton = webDriver.findElement(By.xpath("//button[@name='addReport']"));
 		addReportPageButton.click();
 		
 		WebElement categoryInput = webDriver.findElement(By.name("category"));
@@ -91,10 +116,10 @@ public class NewTest {
 		WebElement profitInput = webDriver.findElement(By.name("profit"));
 		profitInput.sendKeys("8");
 		
-		WebElement addReport = webDriver.findElement(By.xpath("//button[text()='Add report'"));
+		WebElement addReport = webDriver.findElement(By.xpath("//button[@name='submit']"));
 		addReport.click();
 		
-		WebElement tableRow = webDriver.findElement(By.xpath("//th[text()='26/01/23'")); //NOTE: this isn't dynamic, the ReportModel adds in a new list of its own cause idk how to make it dynamic without rebuilding the whole model.
+		WebElement tableRow = webDriver.findElement(By.xpath("//th[text()='26/01/23']")); //NOTE: this isn't dynamic, the ReportModel adds in a new list of its own cause idk how to make it dynamic without rebuilding the whole model.
 		
 		if (tableRow.isDisplayed()) {
 			System.out.println("Add Report Status: Reports is Added");
