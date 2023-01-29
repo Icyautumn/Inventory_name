@@ -15,44 +15,41 @@ public class NewTest {
 	// declare Selenium WebDriver
 	private WebDriver webDriver;
 
-//  @Test
-//  public void checkId() {
-//	  //Load website as a new page
-//	  webDriver.navigate().to("http://localhost:8080/Inventory_manager/login.jsp");
-//	  WebElement we =  webDriver.findElement(By.id("content"));
-//	  
-//	  System.out.println("id we: "+we.getAttribute("role"));
-//	  Assert.assertEquals(we.getAttribute("role"), "contentinfo");
-//  }
-//  
 	@Test
 	public void checkInvalidCredentials() {
 		// Load Login as a new page
 		webDriver.navigate().to("http://localhost:8080/Inventory_manager/login.jsp");
-		
+
 		// Find the email input element and enter the email address
 		WebElement emailInput = webDriver.findElement(By.name("username"));
 		emailInput.sendKeys("inventory");
 
 		WebElement passwordInput = webDriver.findElement(By.name("password"));
 		passwordInput.sendKeys("wrong");
-		
+
 		WebElement loginButton = webDriver.findElement(By.xpath("//button[@name='loginButton']"));
 		loginButton.click();
-				
-		System.out.println(webDriver.switchTo().alert().getText());
-		if(webDriver.switchTo().alert().getText() != null) {
-			Assert.assertEquals(webDriver.switchTo().alert().getText(), "Username or Password is Incorrect");
-		} else if(webDriver.switchTo().alert().getText() == "no such alert"){
-			System.out.println("Error");
-		}
 
+		System.out.println(webDriver.switchTo().alert().getText());
+		if (webDriver.switchTo().alert().getText() != null) {
+			Assert.assertEquals(webDriver.switchTo().alert().getText(), "Username or Password is Incorrect");
+		} else if (webDriver.switchTo().alert().getText() == "no such alert") {
+			Assert.assertEquals(webDriver.switchTo().alert().getText(), "no such alert");
+		}
+		webDriver.quit();
 	}
-	
+
 	@Test
 	public void checkLogin() {
+		String chromeDriverDir = "C:\\Program Files\\Google\\Chrome\\chromedriver.exe";
+
+		System.setProperty("webdriver.chrome.driver", chromeDriverDir);
+
+		// initialize FirefoxDriver at the start of test
+		webDriver = new ChromeDriver();
+
 		// Load Login as a new page
-		webDriver.navigate().to("http://localhost:8080/Inventory_manager/login.jsp");
+		webDriver.navigate().to("http://localhost:8080/Inventory_manager/");
 
 		// Find the email input element and enter the email address
 		WebElement emailInput = webDriver.findElement(By.name("username"));
@@ -74,14 +71,13 @@ public class NewTest {
 		}
 		Assert.assertTrue(webDriver.getTitle().contains("Reports"));
 	}
-	
 
 	@Test
 	public void checkReportsLoaded() {
 		WebElement tableRow = webDriver.findElement(By.xpath("//th[1]"));
-		
+
 		boolean isDisplayed = tableRow.isDisplayed();
-		
+
 		if (tableRow.isDisplayed()) {
 			System.out.println("Reports Status: Reports is loaded");
 		} else {
@@ -89,12 +85,12 @@ public class NewTest {
 		}
 		Assert.assertTrue(isDisplayed);
 	}
-	
+
 	@Test
 	public void verifyAddReportFunctionality() {
 		WebElement addReportPageButton = webDriver.findElement(By.xpath("//button[@name='addReport']"));
 		addReportPageButton.click();
-		
+
 		WebElement categoryInput = webDriver.findElement(By.name("category"));
 		categoryInput.sendKeys("FOOD");
 
@@ -115,12 +111,18 @@ public class NewTest {
 
 		WebElement profitInput = webDriver.findElement(By.name("profit"));
 		profitInput.sendKeys("8");
-		
+
 		WebElement addReport = webDriver.findElement(By.xpath("//button[@name='submit']"));
 		addReport.click();
-		
-		WebElement tableRow = webDriver.findElement(By.xpath("//th[text()='26/01/23']")); //NOTE: this isn't dynamic, the ReportModel adds in a new list of its own cause idk how to make it dynamic without rebuilding the whole model.
-		
+
+		WebElement tableRow = webDriver.findElement(By.xpath("//th[text()='26/01/23']")); // NOTE: this isn't dynamic,
+																							// the ReportModel adds in a
+																							// new list of its own cause
+																							// idk how to make it
+																							// dynamic without
+																							// rebuilding the whole
+																							// model.
+
 		if (tableRow.isDisplayed()) {
 			System.out.println("Add Report Status: Reports is Added");
 		} else {
@@ -134,7 +136,6 @@ public class NewTest {
 		// Setting system properties of ChromeDriver
 		// to amend directory path base on your local file path
 		String chromeDriverDir = "C:\\Program Files\\Google\\Chrome\\chromedriver.exe";
-		
 
 		System.setProperty("webdriver.chrome.driver", chromeDriverDir);
 
