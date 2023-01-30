@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-2 align-items-end">
 				<form action="addReport.jsp" method="post" >
-					<button type="submit" class="btn btn-primary">Add new report</button>
+					<button type="submit" name="addReport" class="btn btn-primary">Add new report</button>
 				</form>
 			</div>
 		</div>

@@ -58,7 +58,7 @@ String paramID = request.getParameter("id");
 					class="form-control" id="profit" name="profit"
 					placeholder="Enter profit" required>
 			</div>
-			<button type="submit" class="btn btn-primary">Add Report</button>
+			<button type="submit" name="submit" class="btn btn-primary">Add Report</button>
 		</form>
 
 	</div>
