@@ -45,8 +45,8 @@ public class ReportModel {
 				List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
 						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),"003"));
 		result.add(new Report("04", "110044", "26/01/23", ReportCategory.FOOD,
-				List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
-						new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),"002"));
+				List.of(new InventoryItem("Mala", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
+						new InventoryItem("cake", 10.0, 5.0, 3.0, 11.0, 8.0, ReportCategory.FOOD)),"002"));
 		
 		return result;
 	}
