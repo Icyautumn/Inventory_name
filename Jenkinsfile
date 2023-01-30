@@ -3,24 +3,56 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                echo 'Building...'
+                sh 'make build'
+            }
+            post {
+                always {
+                    echo 'Build complete'
+                }
+                failure {
+                    echo 'Build failed'
+                    sendMail subject: 'Build failed', body: 'Build failed'
+                }
             }
         }
         stage('Test') {
             steps {
-                bat 'make check'
-                junit 'test-output/junitreports/*.xml'
-                selenium 'test-output/testng-results.xml'
+                echo 'Testing...'
+                sh './test-output/junitreports/.xml test'
+                junit 'src/test/java/models/*.java'
+            }
+            post {
+                always {
+                    junit 'test-output/junitreports/*.xml'
+                }
+                success {
+                    echo 'Tests passed'
+                }
+                failure {
+                    echo 'Test failed'
+                    sendMail subject: 'Test failed', body: 'Test failed'
+                }
             }
         }
         stage('Deploy') {
             when {
-                expression{
+                expression {
                     currentBuild.result == 'SUCCESS'
                 }
             }
             steps {
-                bat 'make publish'
+                echo 'Deploying...'
+                sh 'make publish'
+            }
+            post {
+                success {
+                    echo 'Deployment complete'
+                }
+                failure {
+                    echo 'Deploy failed'
+                    sendMail subject: 'Deploy failed', body: 'Deploy failed'
+                }
             }
         }
     }
