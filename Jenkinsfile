@@ -11,7 +11,6 @@ pipeline {
                     echo Building...
                     mvn clean install
                 '''
-                 
             }
             post {
                 always {
