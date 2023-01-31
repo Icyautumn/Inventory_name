@@ -112,6 +112,10 @@ creating project</description>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.3</version>
 			</plugin>
+			<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.1</version>
+				</plugin>
 		</plugins>
 	</build>
 </project>
