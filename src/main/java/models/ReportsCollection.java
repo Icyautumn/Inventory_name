@@ -25,5 +25,11 @@ public class ReportsCollection {
     		reports.add(report);
     	}
     }
+	
+	public void removeInventory(Report report) {
+		if(reports.size() != Capacity) {
+			reports.remove(report);
+		}
+	}
 
 }
