@@ -43,7 +43,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                deploy adapters: [tomcat9(credentialsId: '8bfbcc6e-5475-4c02-9441-f7000bf29ae4', path: '', url: 'http://localhost:8090')], contextPath: 'Inventory_manager', onFailure: false, war: 'target/*.war'
+                deploy adapters: [tomcat9(credentialsId: '1db651fb-13cd-4076-9bdd-4a750fea95ef', path: '', url: 'http://localhost:8090')], contextPath: 'Inventory_manager', onFailure: false, war: 'target/*.war'
             }
             post {
                 success {
