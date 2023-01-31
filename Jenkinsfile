@@ -5,12 +5,13 @@ pipeline {
     }
     stages {
         stage('Build') {
-             steps {
+            steps {
                 bat label: 'Build Project', script: '''
                     @echo off
                     echo Building...
                     mvn clean install
                 '''
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
             post {
                 always {
@@ -18,7 +19,7 @@ pipeline {
                 }
                 failure {
                     echo 'Build failed'
-                    emailext body: 'Build has failed', subject: 'Build Failed', to: 'jarvisgan@gmail.com'
+                    sendMail subject: 'Build failed', body: 'Build failed'
                 }
             }
         }
@@ -30,34 +31,34 @@ pipeline {
             }
             post {
                 always {
-                    junit 'test-output/junitreports/*.xml'
-                }
-                success {
-                    echo 'Tests passed'
-                }
-                failure {
-                    echo 'Test failed'
-                    emailext body: 'Test has failed', subject: 'Test Failed', to: 'jarvisgan@gmail.com'
-                }
-            }
-        }
-        stage('Deploy') {
-            when {
-                expression {
-                    currentBuild.result == 'SUCCESS'
+                    junit 'target/surefire-reports/*.xml'
+                    success {
+                        echo 'Tests passed'
+                    }
+                    failure {
+                        echo 'Test failed'
+                        sendMail subject: 'Test failed', body: 'Test failed'
+                    }
                 }
             }
-            steps {
-                echo 'Deploying...'
-                sh 'make publish'
-            }
-            post {
-                success {
-                    echo 'Deployment complete'
+            stage('Deploy') {
+                when {
+                    expression {
+                        currentBuild.result == 'SUCCESS'
+                    }
                 }
-                failure {
-                    echo 'Deploy failed'
-                    emailext body: 'Deplyment has failed', subject: 'Deplyment Failed', to: 'jarvisgan@gmail.com'
+                steps {
+                    echo 'Deploying...'
+                    sh 'make publish'
+                }
+                post {
+                    success {
+                        echo 'Deployment complete'
+                    }
+                    failure {
+                        echo 'Deploy failed'
+                        sendMail subject: 'Deploy failed', body: 'Deploy failed'
+                    }
                 }
             }
         }
