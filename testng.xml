@@ -3,8 +3,16 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name=".SeleniumTest"/>
-      <class name="models.ReportsCollectionTest"/>
+      <class name=".SeleniumTest" />
+      <class name=".InventoryItemTest" />
+      <class name=".ReportModelTest" />
+      <class name=".ReportServletTesting" />
     </classes>
   </test> <!-- Test -->
-</suite> <!-- Suite -->
+
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="models.ReportsCollectionTest" />
+    </classes>
+  </test>
+</suite>
