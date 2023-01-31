@@ -61,6 +61,7 @@ public class loginServlet extends HttpServlet {
 			String password = request.getParameter("password");
 
 			HttpSession session = request.getSession();
+			// test
 //			 hash password
 //			 var hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 //			BCrypt.checkpw(password, passwordcallfromdatabase);
