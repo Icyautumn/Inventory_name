@@ -5,13 +5,12 @@ pipeline {
     }
     stages {
         stage('Build') {
-             steps {
+            steps {
                 bat label: 'Build Project', script: '''
                     @echo off
                     echo Building...
                     mvn clean install
                 '''
-                 
             }
             post {
                 always {
@@ -26,7 +25,10 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh './test-output/junitreports/.xml test'
+                bat '''@echo off
+                cd target\\surefire-reports
+                java -jar selenium-server-standalone.jar -htmlSuite "*chrome" "http://localhost:8080/Inventory_manager/" "TEST-TestSuite.xml" "results.html"
+                '''
                 junit 'src/test/java/models/*.java'
             }
             post {
