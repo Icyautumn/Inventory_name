@@ -25,15 +25,11 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-                bat '''@echo off
-                cd target\\surefire-reports
-                java -jar selenium-server-standalone.jar -htmlSuite "*chrome" "http://localhost:8080/Inventory_manager/" "TEST-TestSuite.xml" "results.html"
-                '''
-                junit 'src/test/java/models/*.java'
+                bat 'mvn test'
             }
             post {
                 always {
-                    junit 'test-output/junitreports/*.xml'
+                    junit '**/target/surefire-reports/TEST-*xml'
                 }
                 success {
                     echo 'Tests passed'
