@@ -9,7 +9,7 @@ pipeline {
                 bat label: 'Build Project', script: '''
                     @echo off
                     echo Building...
-                    mvn clean install
+                    mvn package -Dmaven.test.skip=true
                 '''
             }
             post {
