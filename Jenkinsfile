@@ -1,10 +1,18 @@
 pipeline {
     agent any
+    tools {
+        maven 'Maven 3.8.6'
+        jdk 'JDK 14.0.1'
+    }
     stages {
         stage('Build') {
-            steps {
-                echo 'Building...'
-                sh 'make build'
+             steps {
+                bat label: 'Build Project', script: '''
+                    @echo off
+                    echo Building...
+                    mvn clean install
+                '''
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
             }
             post {
                 always {
