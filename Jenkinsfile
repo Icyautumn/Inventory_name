@@ -41,14 +41,9 @@ pipeline {
             }
         }
         stage('Deploy') {
-            when {
-                expression {
-                    currentBuild.result == 'SUCCESS'
-                }
-            }
             steps {
                 echo 'Deploying...'
-                sh 'make publish'
+                deploy adapters: [tomcat9(credentialsId: '8bfbcc6e-5475-4c02-9441-f7000bf29ae4', path: '', url: 'http://localhost:8090')], contextPath: 'Inventory_manager', onFailure: false, war: 'target/*.war'
             }
             post {
                 success {
