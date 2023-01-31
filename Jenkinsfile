@@ -5,13 +5,13 @@ pipeline {
     }
     stages {
         stage('Build') {
-            steps {
+             steps {
                 bat label: 'Build Project', script: '''
                     @echo off
                     echo Building...
                     mvn clean install
                 '''
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
             }
             post {
                 always {
@@ -31,36 +31,37 @@ pipeline {
             }
             post {
                 always {
-                    junit 'target/surefire-reports/*.xml'
-                    success {
-                        echo 'Tests passed'
-                    }
-                    failure {
-                        echo 'Test failed'
-                        sendMail subject: 'Test failed', body: 'Test failed'
-                    }
+                    junit 'test-output/junitreports/*.xml'
+                success {
+                    echo 'Tests passed'
+
+                }
+                failure {
+                    echo 'Test failed'
+                    sendMail subject: 'Test failed', body: 'Test failed'
                 }
             }
-            stage('Deploy') {
-                when {
-                    expression {
-                        currentBuild.result == 'SUCCESS'
-                    }
+        }
+        stage('Deploy') {
+            when {
+                expression {
+                    currentBuild.result == 'SUCCESS'
                 }
-                steps {
-                    echo 'Deploying...'
-                    sh 'make publish'
+            }
+            steps {
+                echo 'Deploying...'
+                sh 'make publish'
+            }
+            post {
+                success {
+                    echo 'Deployment complete'
                 }
-                post {
-                    success {
-                        echo 'Deployment complete'
-                    }
-                    failure {
-                        echo 'Deploy failed'
-                        sendMail subject: 'Deploy failed', body: 'Deploy failed'
-                    }
+                failure {
+                    echo 'Deploy failed'
+                    sendMail subject: 'Deploy failed', body: 'Deploy failed'
                 }
             }
         }
     }
 }
+
