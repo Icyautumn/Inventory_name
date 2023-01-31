@@ -5,13 +5,12 @@ pipeline {
     }
     stages {
         stage('Build') {
-             steps {
+            steps {
                 bat label: 'Build Project', script: '''
                     @echo off
                     echo Building...
-                    mvn clean install
+                    mvn package -Dmaven.test.skip=true
                 '''
-                 
             }
             post {
                 always {
@@ -26,12 +25,11 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh './test-output/junitreports/.xml test'
-                junit 'src/test/java/models/*.java'
+                bat 'mvn test'
             }
             post {
                 always {
-                    junit 'test-output/junitreports/*.xml'
+                    junit '**/target/surefire-reports/TEST-*xml'
                 }
                 success {
                     echo 'Tests passed'
