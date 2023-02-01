@@ -123,7 +123,7 @@ creating project</description>
 					</dependency>
 				</dependencies>
 			</plugin>
-
 		</plugins>
+		<finalName>Inventory_manager</finalName>
 	</build>
 </project>
