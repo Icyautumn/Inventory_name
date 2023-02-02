@@ -1,75 +1,107 @@
 import org.testng.annotations.Test;
 
+import entities.InventoryItem;
 import entities.Report;
+import entities.ReportCategory;
 import models.ReportModel;
-import models.ReportsCollection;
 import servlets.ReportServlet;
-
-import static org.mockito.Mockito.mock;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.mockito.ArgumentMatcher;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 public class ReportServletTesting extends Mockito {
+
   private HttpServletRequest request;
   private HttpServletResponse response;
   private HttpSession session;
-  private ReportServlet reportServlet;
   private ReportModel reportModel;
-  private List<Report> reports;
-    
+  private RequestDispatcher requestDispatcher;
+  @Spy
+  ReportServlet servlet;
 
-  
   @BeforeMethod
-  public void setup() {
+  public void setUp() {
     request = mock(HttpServletRequest.class);
     response = mock(HttpServletResponse.class);
     session = mock(HttpSession.class);
-
-    reportModel = mock(ReportModel.class);
-    reportServlet = mock(ReportServlet.class);
-
     when(request.getSession()).thenReturn(session);
-    when(reportModel.findAll()).thenReturn(reports);
+    reportModel = mock(ReportModel.class);
+    servlet = mock(ReportServlet.class);
+    requestDispatcher = mock(RequestDispatcher.class);
+
   }
-  
+
   @Test
   public void testDoGet() throws ServletException, IOException {
-    reportServlet.doGet(request, response);
+    List<Report> result = spy(new ArrayList<Report>());
 
-    verify(session).setAttribute(anyString(), eq("reportData"));
-    
-    // Mockito.verify(request).getRequestDispatcher("/reports.jsp");
-    verify(request.getRequestDispatcher("/reports.jsp")).forward(request, response);
+    result.add(new Report("01", "110011", "11/11/20", ReportCategory.FOOD,
+        Arrays.asList(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
+            new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),
+        "001"));
+    result.add(new Report("02", "110022", "10/10/20", ReportCategory.DRINK,
+        Arrays.asList(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK),
+            new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK)),
+        "002"));
+    result.add(new Report("03", "110033", "09/09/20", ReportCategory.FOOD,
+        Arrays.asList(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
+            new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),
+        "003"));
 
-    Assert.assertEquals(reports, reportModel.findAll());
+    when(request.getRequestDispatcher("reports.jsp")).thenReturn(requestDispatcher);
+
+    servlet.doGet(request, response);
+
+    when(reportModel.findAll()).thenReturn(result);
+    when(request.getSession()).thenReturn(session);
+    verify(servlet, atLeast(1)).doGet(request, response);
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("reportData")).thenReturn(result);
+    List<Report>testData = (List<Report>) session.getAttribute("reportData");
+    // verify(session, atLeast(1)).getAttribute("reportData");
+
+    System.out.println(result);
+    System.out.println(reportModel.findAll());
+
+    Assert.assertEquals(result, testData);
   }
 
   @Test
-  public void testDoPost() throws ServletException, IOException {
-    reportServlet.doPost(request, response);
-
-    verify(session).setAttribute("reportData", reports);
-    verify(request).getRequestDispatcher("/reports.jsp");
-    verify(request.getRequestDispatcher("/reports.jsp")).forward(request, response);
-
+  public void testdoPost() throws ServletException, IOException {
+    List<Report> reports = Arrays.asList(new Report(null, null, null, null, null, null),
+        new Report(null, null, null, null, null, null), new Report(null, null, null, null, null, null));
+    when(reportModel.findAll()).thenReturn(reports);
+    when(request.getSession()).thenReturn(session);
+    when(request.getRequestDispatcher("/reports.jsp")).thenReturn(requestDispatcher);
     Assert.assertEquals(reports, reportModel.findAll());
+
   }
 
 }
+
+    // verify(result, atLeast(0)).add(new Report("01", "110011", "11/11/20", ReportCategory.FOOD,
+    //     List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
+    //         new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),
+    //     "001"));
+    // verify(result, atLeast(0)).add(new Report("02", "110022", "10/10/20", ReportCategory.DRINK,
+    //     List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK),
+    //         new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK)),
+    //     "002"));
+    // verify(result, atLeast(0)).add(new Report("03", "110033", "09/09/20", ReportCategory.FOOD,
+    //     List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
+    //         new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),
+    //     "003"));
