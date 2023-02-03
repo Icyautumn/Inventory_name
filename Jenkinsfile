@@ -8,7 +8,7 @@ pipeline {
             steps {
                 withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'e826cc77-d587-4647-854e-595bba94e0a3') {
                     echo 'Building...'
-                    bat 'mvn clean package mvn sonar:sonar'
+                    bat 'mvn clean install sonar:sonar'
    
                 }
             }
