@@ -6,7 +6,8 @@
       <class name=".SeleniumTest" />
       <class name=".InventoryItemTest" />
       <class name=".ReportModelTest" />
-      <class name=".ReportServletTesting" />
+      <class name=".ReportServletTest" />
+      <class name=".LoginServletTest"/>
     </classes>
   </test> <!-- Test -->
 

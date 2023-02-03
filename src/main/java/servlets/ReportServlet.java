@@ -1,10 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,16 +34,7 @@ public class ReportServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-
-		ReportModel reportModel = new ReportModel();
-
-		List<Report> action = reportModel.findAll();
-
-		session.setAttribute("reportData", action);
-		request.getRequestDispatcher("/reports.jsp").forward(request, response);
-		return;
-
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -60,11 +49,11 @@ public class ReportServlet extends HttpServlet {
 		ReportModel reportModel = new ReportModel();
 
 		List<Report> action = reportModel.findAll();
-		
+
 		session.setAttribute("reportData", action);
-		
+
 		request.getRequestDispatcher("/reports.jsp").forward(request, response);
-		return;
+		doGet(request, response);
 	}
 
 }
