@@ -9,6 +9,7 @@ pipeline {
                 withSonarQubeEnv(credentialsId: 'e826cc77-d587-4647-854e-595bba94e0a3') {
                     echo 'Building...'
                     bat 'mvn clean package sonar:sonar'
+   
                 }
             }
             post {
@@ -24,12 +25,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 echo 'Quality Gate...'
-                def qg = waitForQualityGate abortPipeline: True, credentialsId: 'e826cc77-d587-4647-854e-595bba94e0a3'()
-                if (qg.status != 'OK') {
-                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                } else {
-                    echo "Pipeline not aborted due to quality gate failure: ${qg.status}"
-                }
+                waitForQualityGate abortPipeline: True, credentialsId: 'e826cc77-d587-4647-854e-595bba94e0a3'
             }
             post {
                 success {
