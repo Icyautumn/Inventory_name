@@ -24,8 +24,10 @@ pipeline {
         }
         stage('Quality Gate') {
             steps {
-                echo 'Quality Gate...'
-                waitForQualityGate abortPipeline: true
+                timeout(time: 1, unit: 'MINUTES') {
+                    echo 'Quality Gate...'
+                    waitForQualityGate abortPipeline: true
+                }
             }
             post {
                 success {
