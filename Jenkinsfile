@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build & SonarQube Analysis') {
             steps {
-                withSonarQubeEnv(installationName: 'SonarQube' credentialsId: 'e826cc77-d587-4647-854e-595bba94e0a3') {
+                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'e826cc77-d587-4647-854e-595bba94e0a3') {
                     echo 'Building...'
                     bat 'mvn clean package sonar:sonar'
    
