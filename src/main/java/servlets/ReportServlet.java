@@ -1,10 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,7 +42,6 @@ public class ReportServlet extends HttpServlet {
 
 		session.setAttribute("reportData", action);
 		request.getRequestDispatcher("/reports.jsp").forward(request, response);
-		return;
 
 	}
 
@@ -64,7 +61,6 @@ public class ReportServlet extends HttpServlet {
 		session.setAttribute("reportData", action);
 		
 		request.getRequestDispatcher("/reports.jsp").forward(request, response);
-		return;
 	}
 
 }
