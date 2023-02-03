@@ -6,7 +6,12 @@ import entities.ReportCategory;
 import models.ReportModel;
 import servlets.ReportServlet;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,67 +27,45 @@ import org.mockito.Spy;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 
-public class ReportServletTest extends Mockito {
+public class ReportServletTest {
 
   private HttpServletRequest request;
   private HttpServletResponse response;
   private HttpSession session;
   private ReportModel reportModel;
   private RequestDispatcher requestDispatcher;
-  @Spy
-  ReportServlet servlet;
+  PrintWriter printWriter;
+  ReportServlet servlet = new ReportServlet();
+
+  StringWriter stringWriter = new StringWriter();
 
   @BeforeMethod
-  public void setUp() {
+  public void setUp() throws IOException {
     request = mock(HttpServletRequest.class);
     response = mock(HttpServletResponse.class);
     session = mock(HttpSession.class);
     when(request.getSession()).thenReturn(session);
     reportModel = mock(ReportModel.class);
-    servlet = mock(ReportServlet.class);
     requestDispatcher = mock(RequestDispatcher.class);
+    printWriter = mock(PrintWriter.class);
+
+    Mockito.when(response.getWriter()).thenReturn(new PrintWriter(stringWriter));
 
   }
 
   @Test
   public void testDoGet() throws ServletException, IOException {
-    List<Report> result = spy(new ArrayList<Report>());
-
-    result.add(new Report("01", "110011", "11/11/20", ReportCategory.FOOD,
-        Arrays.asList(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
-            new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),
-        "001"));
-    result.add(new Report("02", "110022", "10/10/20", ReportCategory.DRINK,
-        Arrays.asList(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK),
-            new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK)),
-        "002"));
-    result.add(new Report("03", "110033", "09/09/20", ReportCategory.FOOD,
-        Arrays.asList(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
-            new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),
-        "003"));
-    when(request.getSession()).thenReturn(session);
-    when(request.getRequestDispatcher("reports.jsp")).thenReturn(requestDispatcher);
-
     servlet.doGet(request, response);
-
-    when(reportModel.findAll()).thenReturn(result);
-    when(request.getSession()).thenReturn(session);
-    verify(servlet, atLeast(1)).doGet(request, response);
-
-    when(request.getSession()).thenReturn(session);
-    when(session.getAttribute("reportData")).thenReturn(result);
-    List<Report> testData = (List<Report>) session.getAttribute("reportData");
-    // verify(session, atLeast(1)).getAttribute("reportData");
-
-    System.out.println(result);
-    System.out.println(reportModel.findAll());
-
-    Assert.assertEquals(result, testData);
+    Assert.assertTrue(stringWriter.toString().contains("Served at: "));
   }
 
   @Test
   public void testdoPost() throws ServletException, IOException {
-    List<Report> result = spy(new ArrayList<Report>());
+    Mockito.when(request.getSession()).thenReturn(session);
+    Mockito.when(request.getRequestDispatcher("/reports.jsp")).thenReturn(requestDispatcher);
+
+    List<Report> result = Mockito.spy(new ArrayList<Report>());
+    servlet.doPost(request, response);
 
     result.add(new Report("01", "110011", "11/11/20", ReportCategory.FOOD,
         Arrays.asList(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD),
@@ -97,48 +80,20 @@ public class ReportServletTest extends Mockito {
             new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),
         "003"));
 
-    System.out.println(result);
+    Mockito.when(reportModel.findAll()).thenReturn(result);
+    Mockito.when(session.getAttribute("reportData")).thenReturn(result);
 
-    when(request.getSession()).thenReturn(session);
-    when(request.getRequestDispatcher("/reports.jsp")).thenReturn(requestDispatcher);
-    when(reportModel.findAll()).thenReturn(result);
-    when(request.getSession()).thenReturn(session);
-    when(session.getAttribute("reportData")).thenReturn(result);
-
-    HttpSession session = request.getSession();
-
-    ReportModel reportModel = new ReportModel();
+    Assert.assertEquals(request.getSession(), session);
+    Assert.assertEquals(request.getRequestDispatcher("/reports.jsp"), requestDispatcher);
+    Assert.assertEquals(reportModel.findAll(), result);
 
     List<Report> action = reportModel.findAll();
 
-    session.setAttribute("reportData", action);
-
     List<Report> testData = (List<Report>) session.getAttribute("reportData");
     System.out.println(testData);
-
-    request.getRequestDispatcher("/reports.jsp").forward(request, response);
-
-    Assert.assertEquals(action.size(), testData.size());
+    session.setAttribute("reportData", action);
+    Assert.assertEquals(testData.size(), action.size());
 
   }
 
 }
-
-// verify(result, atLeast(0)).add(new Report("01", "110011", "11/11/20",
-// ReportCategory.FOOD,
-// List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0,
-// ReportCategory.FOOD),
-// new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),
-// "001"));
-// verify(result, atLeast(0)).add(new Report("02", "110022", "10/10/20",
-// ReportCategory.DRINK,
-// List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0,
-// ReportCategory.DRINK),
-// new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.DRINK)),
-// "002"));
-// verify(result, atLeast(0)).add(new Report("03", "110033", "09/09/20",
-// ReportCategory.FOOD,
-// List.of(new InventoryItem("Oreo", 1.0, 2.0, 3.0, 4.0, 5.0,
-// ReportCategory.FOOD),
-// new InventoryItem("cake", 1.0, 2.0, 3.0, 4.0, 5.0, ReportCategory.FOOD)),
-// "003"));

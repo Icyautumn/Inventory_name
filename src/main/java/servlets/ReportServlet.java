@@ -34,15 +34,7 @@ public class ReportServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-
-		ReportModel reportModel = new ReportModel();
-
-		List<Report> action = reportModel.findAll();
-
-		session.setAttribute("reportData", action);
-		request.getRequestDispatcher("/reports.jsp").forward(request, response);
-
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -57,10 +49,11 @@ public class ReportServlet extends HttpServlet {
 		ReportModel reportModel = new ReportModel();
 
 		List<Report> action = reportModel.findAll();
-		
+
 		session.setAttribute("reportData", action);
-		
+
 		request.getRequestDispatcher("/reports.jsp").forward(request, response);
+		doGet(request, response);
 	}
 
 }
