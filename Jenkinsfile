@@ -4,12 +4,12 @@ pipeline {
         maven 'Maven 3.8.6'
     }
     stages {
-        stage('Build') {
+        stage('Build & SonarQube Analysis') {
             steps {
                 bat label: 'Build Project', script: '''
                     @echo off
                     echo Building...
-                    mvn package -Dmaven.test.skip=true
+                    mvn clean package sonar:sonar
                 '''
             }
             post {
@@ -19,6 +19,20 @@ pipeline {
                 failure {
                     echo 'Build failed'
                     emailext body: 'Build has failed', subject: 'Build Failed', to: 'jarvisgan@gmail.com'
+                }
+            }
+        }
+        stage('Quality Gate') {
+            steps {
+                echo 'Quality Gate...'
+                waitForQualityGate abortPipeline: true
+            }
+            post {
+                success {
+                    echo 'Quality Gate passed'
+                }
+                failure {
+                    echo 'Quality Gate failed'
                 }
             }
         }

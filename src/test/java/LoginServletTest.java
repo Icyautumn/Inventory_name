@@ -60,7 +60,6 @@ public class LoginServletTest {
 
     @Test
     public void testDoGet() throws ServletException, IOException {
-        loginServlet servlet = new loginServlet();
         servlet.doGet(request, response);
         Assert.assertTrue(stringWriter.toString().contains("Served at: "));
     }
