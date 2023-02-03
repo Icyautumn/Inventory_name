@@ -25,7 +25,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 echo 'Quality Gate...'
-                waitForQualityGate abortPipeline: true, credentialsId: 'e826cc77-d587-4647-854e-595bba94e0a3', webhookSecretId : 'secret'
+                waitForQualityGate abortPipeline: true
             }
             post {
                 success {
