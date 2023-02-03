@@ -8,7 +8,7 @@ pipeline {
             steps {
                 withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'e826cc77-d587-4647-854e-595bba94e0a3') {
                     echo 'Building...'
-                    bat 'mvn clean package sonar:sonar'
+                    bat 'mvn clean package mvn sonar:sonar'
    
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 echo 'Quality Gate...'
-                waitForQualityGate abortPipeline: True, credentialsId: 'e826cc77-d587-4647-854e-595bba94e0a3'
+                waitForQualityGate abortPipeline: true, credentialsId: 'e826cc77-d587-4647-854e-595bba94e0a3'
             }
             post {
                 success {
