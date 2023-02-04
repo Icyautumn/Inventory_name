@@ -9,7 +9,6 @@ pipeline {
                 withSonarQubeEnv(installationName: 'SonarQube') {
                     echo 'Building...'
                     bat 'mvn clean install sonar:sonar'
-                    
                 }
             }
             post {
